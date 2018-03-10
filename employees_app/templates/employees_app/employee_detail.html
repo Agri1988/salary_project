@@ -1,0 +1,22 @@
+{% extends 'base_app/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+    <link rel="stylesheet" type="text/css" href="{% static 'employees_app/css/modal_form.css' %}">
+    <script type="text/javascript">var url_add_identity_document = "{% url 'employees_app:add_identity_document' %}"</script>
+    <script type="text/javascript" src="{% static 'employees_app/js/add_identity_document.js' %}"></script>
+
+    <div class="container" style="padding-top: 5%">
+        <div class="row">
+            <div class="col-lg-6">
+                <form id="employee_form" method="post" enctype="multipart/form-data" action="{% url 'employees_app:employee_detail' employee_id%}">
+                    {% csrf_token %}
+                    {{ employee_form.as_p }}
+                    <p><button name="submit">Сохранить</button></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'base_app/js/django_form.js' %}"></script>
+                <script type="text/javascript">bootstrap_form('#employee_form')</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'documents_app/new_timesheet.html' %}
+{% block norm_day_hour %}
+    <input id="workdays_in_month" type="number" value="{{ timesheets.0.5 }}" placeholder="количество дней" >
+    <input id="workhours_in_month" type="number" value="{{ timesheets.0.6 }}" placeholder="количество часов">
+{% endblock %}
+{% block lines %}
+    <tr>
+        <th>ФИО</th>
+        {% for day in timesheets.0.2 %}
+            <th>{{ forloop.counter}}</th>
+        {% endfor %}
+        <th><span style="width: 30px">Кол.ч</span></th>
+        <th><span style="width: 30px">Кол.дн</span></th>
+    </tr>
+    {% for timesheet in timesheets %}
+        <tr>
+            <td>{{ timesheet.0 }}<input hidden name="employee" value="{{ timesheet.0.pk }}"></td>
+            {% for day in timesheet.2 %}
+                <td><input id="line{{ timesheet.0.pk }}" name="{{ forloop.counter }}"
+                           type="text" value="{{ day }}" style="width: 25px"
+                           onchange="summ_hours({{ timesheet.0.pk }})"></td>
+            {% endfor %}
+            <td><input id="summ_hours_{{ timesheet.0.pk }}" name="summ_hours_{{timesheet.0.pk }}" type="text" value="" style="width: 40px"></td>
+            <td><input id="summ_days_{{ timesheet.0.pk }}" name="summ_days_{{ timesheet.0.pk }}" type="text" value="" style="width: 25px"></td>
+            <script type="text/javascript">summ_hours({{ timesheet.0.pk }})</script>
+        </tr>
+    {% endfor %}
+{% endblock %}

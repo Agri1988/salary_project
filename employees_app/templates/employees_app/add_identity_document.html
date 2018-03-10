@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            {% load staticfiles %}
+                <form  class="form-inline" id='identity_document_form' enctype="multipart/form-data" action="{% url 'employees_app:add_identity_document' %}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <p><button name="submit">Сохранить</button></p>
+                </form>
+                    <script type="text/javascript" src="{% static 'base_app/js/django_form.js' %}"></script>
+                    <script type="text/javascript"> bootstrap_form('#identity_document_form')</script>
+        </div>
+    </div>
+</div>

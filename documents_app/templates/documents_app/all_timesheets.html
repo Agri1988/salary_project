@@ -1,0 +1,16 @@
+{% extends 'base_app/base.html' %}
+{% load staticfiles %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                {% if timesheets %}
+                    {% include  'documents_app/timesheets_table.html' with timesheets=timesheets %}
+                {% else %}
+                    У вас нет графиков отработанного времени<br>
+                {% endif %}
+                    <a href="{% url 'documents_app:timesheet_new'  %}">Добавить график отработанного времени</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+<div class="table-responsive ">
+    <table  id="table" class="table table-bordered">
+        <tr>
+            <th>№п/п</th>
+            <th>ФИО сотрудника</th>
+        </tr>
+
+        {% for employee in employees %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'employees_app:employee_detail' employee.id %}">{{ employee }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

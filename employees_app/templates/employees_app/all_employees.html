@@ -1,0 +1,16 @@
+{% extends 'base_app/base.html' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                {% if employees %}
+                    {% include  'employees_app/employees_table.html' with employees=employees%}
+                {% else %}
+                    У вас нет сотрудников<br>
+                {% endif %}
+                    <a href="{% url 'employees_app:employee_detail' 0 %}">Добавить сотрудника</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

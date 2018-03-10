@@ -1,0 +1,56 @@
+{% extends 'base_app/base.html' %}
+{% load staticfiles %}
+{% block body %}
+    <script type="text/javascript" src="{% static 'documents_app/js/calculate_timesheet_data.js' %}"></script>
+    <div class="conteiner">
+        <div class="row">
+            <div class="col-lg-12">
+                <input id="timesheet_date" type="date" >
+                <button id="time_sheet_btn" >Создать график</button>
+                {% block norm_day_hour %}
+                    <input id="workdays_in_month" type="number" value="{{ workdays_in_month }}" placeholder="количество дней" >
+                    <input id="workhours_in_month" type="number" value="{{ workhours_in_month }}" placeholder="количество часов">
+                {% endblock %}
+                <form id="serialize_form">
+                        <div class="table-responsive ">
+                            <table  id="table" class="table table-bordered">
+                            {% block lines %}
+                                <tr>
+                                    <th>ФИО</th>
+                                    {% for day in days_list %}
+                                        <th>{{ forloop.counter}}</th>
+                                    {% endfor %}
+                                    <th><span style="width: 30px">Кол.ч</span></th>
+                                    <th><span style="width: 30px">Кол.дн</span></th>
+                                </tr>
+
+                                    {% for employee in employees %}
+                                        <tr>
+                                            <td>{{ employee }}<input hidden name="employee" value="{{ employee.pk }}"></td>
+                                            {% for day in days_list %}
+                                                <td><input id="line{{ employee.pk }}" name="{{ forloop.counter }}"
+                                                           type="text" value="{{ day }}" style="width: 25px"
+                                                           onchange="summ_hours({{ employee.pk }})"></td>
+                                            {% endfor %}
+                                            <td><input id="summ_hours_{{ employee.pk }}" name="summ_hours_{{ employee.pk }}" type="text" value="" style="width: 40px"></td>
+                                            <td><input id="summ_days_{{ employee.pk }}" name="summ_days_{{ employee.pk }}" type="text" value="" style="width: 25px"></td>
+                                            <script type="text/javascript">summ_hours({{ employee.pk }})</script>
+                                        </tr>
+                                    {% endfor %}
+                                {% endblock lines%}
+                            </table>
+                        </div>
+
+                </form>
+                    <button id="save_btn">Сохранить</button>
+                <script type="text/javascript" src="{% static 'documents_app/js/save_timesheet.js' %}"></script>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'documents_app/js/new_timesheet.js' %}"></script>
+    <script type="text/javascript">
+        $('#timesheet_date').val("{{ timesheet_date }}")
+    </script>;
+
+{% endblock %}

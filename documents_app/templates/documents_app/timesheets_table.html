@@ -1,0 +1,15 @@
+<div class="table-responsive ">
+    <table  id="table" class="table table-bordered">
+        <tr>
+            <th>№п/п</th>
+            <th>Месяц</th>
+        </tr>
+
+        {% for timesheet in timesheets %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'documents_app:timesheet_detail' timesheet %}">{{ timesheet|make_list|slice:':-3'|join:'' }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
