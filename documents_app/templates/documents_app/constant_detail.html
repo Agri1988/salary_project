@@ -1,0 +1,17 @@
+{% extends 'base_app/base.html' %}
+{% load staticfiles %}
+{% block body %}
+    <div class="container" style="padding-top: 5%">
+        <div class="row">
+            <div class="col-lg-6">
+                <form id="constant_form" method="post" enctype="multipart/form-data" action="{% url 'documents_app:constant_detail' constant_id %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <p><button name="submit">Сохранить</button></p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'base_app/js/django_form.js' %}"></script>
+                <script type="text/javascript">bootstrap_form('#constant_form')</script>
+{% endblock %}

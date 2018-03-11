@@ -1,0 +1,26 @@
+{% extends 'base_app/base.html' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="table-responsive ">
+                    <table  id="table" class="table table-bordered">
+                        <tr>
+                            <th>№п/п</th>
+                            <th>Наименование<br>константы</th>
+                            <th>Значение<br>константы</th>
+                        </tr>
+
+                        {% for constant in constants %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><a href="{% url 'documents_app:constant_detail' constant.id %}">{{ constant.constant_name}}</a></td>
+                                <td><a href="{% url 'documents_app:constant_detail' constant.id %}">{{ constant.constant_value}}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

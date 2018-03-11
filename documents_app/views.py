@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .forms import TimeSheetForm
-from .models import TimeSheet
+from .forms import TimeSheetForm, ConstantsForm
+from .models import TimeSheet, Constants
 from  employees_app.models import Employee
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -86,3 +86,26 @@ def save_timesheet(request):
             timesheet.norm_days_hours_in_month = '%s/%s' %(request.POST['workdays_in_month'],
                                                                request.POST['workhours_in_month'])
             timesheet.save()
+
+
+def all_constants(request):
+    constants = Constants.objects.all()
+    context = {'constants':constants}
+    return render(request, 'documents_app/constants.html', context)
+
+
+def constant_detail(request, constant_id):
+    constant = Constants.objects.get(id=constant_id)
+    if request.method != 'POST':
+        form = ConstantsForm(instance=constant)
+    else:
+        form = ConstantsForm(instance=constant, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('documents_app:constant_detail', args=[constant_id]))
+    context = {'form':form, 'constant_id':constant_id}
+    return render(request, 'documents_app/constant_detail.html', context)
+
+
+def all_payroll(request):
+    pass
